@@ -12,7 +12,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "kiatko", help="上尾txt。")
     args = parser.parse_args()
-    data = json.dumps(get_data(args.ods))
+    data = get_data(args.ods)
     try:
         sheet = data[args.sheet]
     except KeyError:
@@ -20,4 +20,5 @@ if __name__ == '__main__':
             'Bô {} sheet: {}'.format(args.sheet, list(data.keys())),
             file=sys.stderr
         )
+        exit(1)
     print(len(sheet))
