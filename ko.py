@@ -1,6 +1,6 @@
 import argparse
-import json
 import sys
+from csv import DictReader
 from pyexcel_ods3 import get_data
 
 if __name__ == '__main__':
@@ -21,4 +21,16 @@ if __name__ == '__main__':
             file=sys.stderr
         )
         exit(1)
-    print(len(sheet))
+    piaute = sheet[0]
+    lui = None
+    with open(args.kiatko, 'wt') as tong:
+        for tsua in sheet[1:]:
+            liau = dict(zip(piaute, tsua))
+            if liau['來源'] != lui:
+                lui = liau['來源']
+                print('--- 分類：{} ---'.format(lui), file=tong)
+                print(file=tong)
+            print(liau['編號'], file=tong)
+            print(liau['漢字'], file=tong)
+            print(file=tong)
+    print(len(sheet), 'tsuā.')
